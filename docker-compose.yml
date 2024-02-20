@@ -1,0 +1,18 @@
+version: "3.0"
+
+services:
+
+  mysql_db:
+    container_name: mysql_test_db
+    hostname: test_db
+    build: ./app/build/mysql
+    ports:
+      - 3306:3306
+    volumes:
+      # - ./app/mySQLdata:/var/lib/mysql #Директория БД. Если нужно сохранить БД независимо от контейнера
+      - ./app/etc/mysql.conf:/etc/mysql/conf.d:ro #Конфигурация mysql. :ro только для чтения
+    environment:
+     MYSQL_ALLOW_EMPTY_PASSWORD: yes # При создании назначить для root пустой пароль
+     MYSQL_DATABASE: test # Завести базу test(таблиц в базе нет)
+     MYSQL_USER: test # и завести в базу test пользователя test(изначально доступа к mysql.* нет, поэтому нужен grant к mysql.user для чтения/создания доп. пользователей)
+     MYSQL_PASSWORD: test # c паролем test

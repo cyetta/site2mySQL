@@ -1,0 +1,1 @@
+FROM mysql:8.3.0 as mysql_test_db
